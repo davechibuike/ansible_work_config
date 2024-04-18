@@ -1,0 +1,11 @@
+---
+- name: Install a list of packages
+  host:n1
+  task:
+  -name: Install a list of packages
+    yum:
+      name:
+       - git
+       - httpd
+       - wget
+      state: present
