@@ -7,7 +7,7 @@
         cmd: sudo yum update -y
 
     - name: Install Java
-      package:
+      yum:
         name: java-11-openjdk-devel
         state: present
 
@@ -17,8 +17,7 @@
         dest: /home/centos/apache-maven-3.9.6-bin.tar.gz
 
     - name: Extract Apache Maven archive
-      command:
-        cmd: "sudo tar xzf apache-maven-3.9.6-bin.tar.gz -C /opt"
+        command: "sudo tar xzf apache-maven-3.9.6-bin.tar.gz -C /opt"
 
     - name: Configure Maven environment variables
       file:
@@ -33,12 +32,10 @@
           export PATH=${M2_HOME}/bin:${PATH}
 
     - name: Make Maven script executable
-      shell:
-        cmd: sudo chmod +x /etc/profile.d/maven.sh
+        command: sudo chmod +x /etc/profile.d/maven.sh
 
     - name: Make Maven script executable
-      shell:
-        cmd: source /etc/profile.d/maven.sh
+        command: source /etc/profile.d/maven.sh
 
     - name: Test Maven installation
       command: mvn --version
