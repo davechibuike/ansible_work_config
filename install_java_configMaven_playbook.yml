@@ -1,5 +1,6 @@
 ---
 - name: Install Java and Maven
+  hosts: jenkins_ansible
   become: true
   tasks:
     - name: Update Instance
