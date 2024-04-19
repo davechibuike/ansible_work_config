@@ -12,6 +12,6 @@ PYTHON
 
 SERVER MANAGEMENT ->
 SERVER 1 - JENKINS
-SERVER 2 - JAVA-APP -> NODE1 --> jenkins file
-SERVER 3 - PYHTON   -> NODE2E --> jenklins file
+SERVER 2 - JAVA-Calculator-APP -> NODE 1 --> jenkins file
+SERVER 3 - PYHTON-Flask-App    -> NODE 2 --> jenkins file
 SERVER 4 - ANSIBLE
