@@ -1,5 +1,6 @@
 ---
 - name: Install Jenkins
+  hosts: jenkins_ansible
   become: true
   tasks:
     - name: Install Jenkins
