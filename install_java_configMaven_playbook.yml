@@ -14,13 +14,14 @@
     - name: Download Apache Maven
       get_url:
         url: https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
-        dest: /tmp/apache-maven-3.9.6-bin.tar.gz
+        dest: /home/centos/apache-maven-3.9.6-bin.tar.gz
 
     - name: Extract Apache Maven
       unarchive:
-        src: /tmp/apache-maven-3.9.6-bin.tar.gz
+        src: /home/centos/apache-maven-3.9.6-bin.tar.gz
         dest: /opt
         remote_src: yes
+        extra_opts: "-C /opt"
 
     - name: Configure Maven environment variables
       file:
@@ -33,13 +34,6 @@
         line: |
           export M2_HOME=/opt/apache-maven-3.9.6
           export PATH=${M2_HOME}/bin:${PATH}
-
-    #   - name: Configure Maven environment variables
-    #    copy:
-    #     dest: /etc/profile.d/maven.sh
-    #    content: |
-    #     export M2_HOME=/opt/apache-maven-3.9.6
-    #    export PATH=${M2_HOME}/bin:${PATH}
 
     - name: Make Maven script executable
       shell:
