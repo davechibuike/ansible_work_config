@@ -39,10 +39,5 @@
     - name: Source Maven environment variables
       shell: source /etc/profile.d/maven.sh
 
-    #    - name: Make Maven script executable
-    #      command:
-    #        cmd: "source /etc/profile.d/maven.sh"
-
     - name: Test Maven installation
-      command:
-        cmd: "mvn --version"
+      shell: mvn -version
