@@ -1,7 +1,19 @@
 ---
+-name: Create Directory
+ host:g1
+
+  tasks:
+    -name: create directory
+    file:
+      path: /home/centos/NewDir_fromPlayG1
+      state: directory
+
+
+
 - name: Install a list of packages
   host:n1
-  task:
+
+  tasks:
   -name: Install a list of packages
     yum:
       name:
