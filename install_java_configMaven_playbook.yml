@@ -17,7 +17,7 @@
         dest: /home/centos/apache-maven-3.9.6-bin.tar.gz
 
     - name: Extract Apache Maven archive
-        command: "sudo tar xzf apache-maven-3.9.6-bin.tar.gz -C /opt"
+        command: sudo tar xzf apache-maven-3.9.6-bin.tar.gz -C /opt
 
     - name: Configure Maven environment variables
       file:
