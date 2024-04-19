@@ -9,6 +9,7 @@
 
 - name: Install a list of packages
   hosts: n1
+  become: true
   tasks:
     - name: Install a list of packages
       ansible.builtin.yum:
