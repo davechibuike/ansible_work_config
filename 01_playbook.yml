@@ -1,24 +1,19 @@
 ---
--name: Create Directory
- host:g1
-
+- name: Create Directory
+  hosts: g1
   tasks:
-    -name: create directory
-    file:
-      path: /home/centos/NewDir_fromPlayG1
-      state: directory
-
-
+    - name: create directory
+      ansible.builtin.file:
+        path: /home/centos/NewDir_fromPlayG1
+        state: directory
 
 - name: Install a list of packages
-  host:n1
-
+  hosts: n1
   tasks:
-  -name: Install a list of packages
-    yum:
-      name:
-       - git
-       - httpd
-       - wget
-      state: present
-...
+    - name: Install a list of packages
+      ansible.builtin.yum:
+        name:
+          - git
+          - httpd
+          - wget
+        state: present
