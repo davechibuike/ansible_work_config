@@ -23,11 +23,23 @@
         remote_src: yes
 
     - name: Configure Maven environment variables
-      lineinfile:
+      file:
         path: /etc/profile.d/maven.sh
-        line:
-          - "export M2_HOME=/opt/apache-maven-3.9.6"
-          - "export PATH=${M2_HOME}/bin:${PATH}"
+        state: touch
+
+    - name: Configure Maven environment variables
+      lineinfile:
+        dest: /etc/profile.d/maven.sh
+        line: |
+          export M2_HOME=/opt/apache-maven-3.9.6
+          export PATH=${M2_HOME}/bin:${PATH}
+
+    #   - name: Configure Maven environment variables
+    #    copy:
+    #     dest: /etc/profile.d/maven.sh
+    #    content: |
+    #     export M2_HOME=/opt/apache-maven-3.9.6
+    #    export PATH=${M2_HOME}/bin:${PATH}
 
     - name: Make Maven script executable
       shell:
