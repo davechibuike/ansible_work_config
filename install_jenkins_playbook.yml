@@ -2,13 +2,27 @@
 - name: Install Jenkins
   hosts: jenkins_ansible
   become: true
+
   tasks:
+    - name: Add Jenkins repository key
+      rpm_key:
+        key: https://pkg.jenkins.io/redhat/jenkins.io.key
+        state: present
+
+    - name: Add Jenkins repository
+      yum_repository:
+        name: jenkins
+        description: Jenkins official repository
+        baseurl: https://pkg.jenkins.io/redhat-stable
+        gpgcheck: yes
+        enabled: yes
+
     - name: Install Jenkins
       yum:
         name: jenkins
         state: present
 
-    - name: Enable and start jenkins
+    - name: Enable and start Jenkins service
       service:
         name: jenkins
         state: started
