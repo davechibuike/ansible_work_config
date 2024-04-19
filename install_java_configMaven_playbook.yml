@@ -16,12 +16,9 @@
         url: https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
         dest: /home/centos/apache-maven-3.9.6-bin.tar.gz
 
-    - name: Extract Apache Maven
-      unarchive:
-        src: /home/centos/apache-maven-3.9.6-bin.tar.gz
-        dest: /opt
-        remote_src: yes
-        extra_opts: "-C /opt"
+    - name: Extract Apache Maven archive
+      command:
+        cmd: "sudo tar xzf apache-maven-3.9.6-bin.tar.gz -C /opt"
 
     - name: Configure Maven environment variables
       file:
