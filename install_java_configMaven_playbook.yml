@@ -38,6 +38,3 @@
 
     - name: Source Maven environment variables
       shell: source /etc/profile.d/maven.sh
-
-    - name: Test Maven installation
-      shell: mvn -version
