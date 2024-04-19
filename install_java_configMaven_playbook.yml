@@ -36,9 +36,8 @@
       command:
         cmd: "sudo chmod +x /etc/profile.d/maven.sh"
 
-    - name: Make Maven script executable
-      command:
-        cmd: "export M2_HOME=/opt/apache-maven-3.9.6 && export PATH=${M2_HOME}/bin:${PATH}"
+    - name: Source Maven environment variables
+      shell: source /etc/profile.d/maven.sh
 
     #    - name: Make Maven script executable
     #      command:
