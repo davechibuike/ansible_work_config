@@ -25,23 +25,17 @@
     - name: Configure Maven environment variables
       lineinfile:
         path: /etc/profile.d/maven.sh
-        line: "{{ item }}"
-        insertafter: EOF
-      loop:
-        - "export M2_HOME=/opt/apache-maven-3.9.6"
-        - "export PATH=${M2_HOME}/bin:${PATH}"
+        line:
+          - "export M2_HOME=/opt/apache-maven-3.9.6"
+          - "export PATH=${M2_HOME}/bin:${PATH}"
 
     - name: Make Maven script executable
-      file:
-        path: /etc/profile.d/maven.sh
-        mode: "a+x"
+      shell:
+        cmd: sudo chmod +x /etc/profile.d/maven.sh
 
-    - name: Install Maven dependencies
-      package:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - maven
+    - name: Make Maven script executable
+      shell:
+        cmd: source /etc/profile.d/maven.sh
 
     - name: Test Maven installation
       command: mvn --version
