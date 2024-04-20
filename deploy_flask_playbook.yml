@@ -1,6 +1,6 @@
 ---
 - name: Deploy Flask Application
-  hosts: your_ec2_instance
+  hosts: flask_app_node
   become: yes
   vars:
     venv_path: myprojectenv

@@ -1,6 +1,6 @@
 ---
 - name: Deploy Flask Application
-  hosts: your_server_ip
+  hosts: flask_app_node
   become: yes
   tasks:
     - name: Clone the repository
