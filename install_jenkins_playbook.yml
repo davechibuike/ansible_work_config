@@ -11,9 +11,11 @@
         url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
         dest: /etc/yum.repos.d/jenkins.repo
 
-    - name: Install Java
+    - name: Install Java and fontconfig
       yum:
-        name: fontconfig java-11-openjdk
+        name:
+          - fontconfig
+          - java-11-openjdk
         state: present
 
     - name: Install Jenkins
