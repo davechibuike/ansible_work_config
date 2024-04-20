@@ -6,16 +6,21 @@
     venv_path: myprojectenv
   tasks:
     - name: Ensure Python 3 virtualenv is installed
-      apt:
-        name: python3-venv
+      package:
+        name: python3-virtualenv
         state: present
-      when: ansible_distribution == 'Ubuntu' # Adjust based on your target OS
+      when: ansible_os_family == 'RedHat' # Checking for CentOS/RHEL
 
     - name: Clone the Flask application repository
       git:
         repo: https://github.com/davechibuike/flask_app_Project.git
         dest: /opt/flask_app
         force: yes
+
+    - name: Create directory for virtual environment if it doesn't exist
+      file:
+        path: "/opt/flask_app/{{ venv_path }}"
+        state: directory
 
     - name: Set up Python virtual environment
       command: python3 -m venv /opt/flask_app/{{ venv_path }}
