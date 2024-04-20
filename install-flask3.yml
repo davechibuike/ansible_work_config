@@ -37,7 +37,7 @@
       when: git_clone_result is succeeded and venv_result.rc == 0
 
     - name: Activate virtual environment
-      shell: source "{{ flask_app_dir }}/.myenv/bin/activate"
+      script: "{{ flask_app_dir }}/.myenv/bin/activate"
       args:
         executable: /bin/bash
       when: venv_result.rc == 0
