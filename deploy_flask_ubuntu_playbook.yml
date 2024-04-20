@@ -1,21 +1,21 @@
 # Ansible playbook for deploying a Flask app
 ---
 # Install system apt packages
-- hosts: flask_app_ubuntu
-  become: yes
-  become_method: sudo
-  tasks:
-    - name: disable lighttpd
-      systemd: name=lighttpd state=stopped enabled=no # To avoid conflicts with nginx
-    - name: install packages
-      apt: name={{item}} state=installed
-      with_items:
-        - tree # Optional
-        - python-pip # Optional
-        - python-dev # Optional
-        - python3-pip
-        - python3-dev
-        - nginx
+#- hosts: flask_app_ubuntu
+#  become: yes
+#  become_method: sudo
+#  tasks:
+#    - name: disable lighttpd
+#      systemd: name=lighttpd state=stopped enabled=no # To avoid conflicts with nginx
+#    - name: install packages
+#      apt: name={{item}} state=installed
+#      with_items:
+#        - tree # Optional
+#        - python-pip # Optional
+#        - python-dev # Optional
+#        - python3-pip
+#        - python3-dev
+#        - nginx
 
 # Install the app, note: don't do these tasks with become sudo
 - hosts: flask_app_ubuntu
