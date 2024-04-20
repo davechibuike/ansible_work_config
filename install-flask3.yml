@@ -1,0 +1,40 @@
+- name: setup flask environment
+  hosts: flask_app_ubuntu
+  become: true
+
+  vars:
+    flask_app_dir: /home/ubuntu/flask_dir
+
+  tasks:
+    - name: Ensure flask directory exists
+      file:
+        path: "{{ flask_app_dir }}"
+        state: directory
+        mode: 0777
+        owner: ubuntu
+        group: ubuntu
+
+    - name: Create virtual environment
+      command: python3 -m venv "{{ flask_app_dir }}/.myenv"
+      args:
+        chdir: "{{ flask_app_dir }}"
+      register: venv_result
+
+    - name: Activate virtual environment
+      command: source "{{ flask_app_dir }}/.myenv/bin/activate"
+      args:
+        executable: /bin/bash
+      when: venv_result.rc == 0
+
+    - name: Install Flask using pip
+      pip:
+        name: flask
+        executable: "{{ flask_app_dir }}/.myenv/bin/pip"
+        state: present
+      when: venv_result.rc == 0
+
+    - name: Start Flask app
+      command: "{{ flask_app_dir }}/.myenv/bin/flask run --host=0.0.0.0 --port=5000 &"
+      async: 0
+      poll: 0
+      when: venv_result.rc == 0
