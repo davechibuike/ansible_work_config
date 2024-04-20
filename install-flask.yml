@@ -94,7 +94,7 @@
     - name: clone git repository
       git:
         repo: https://github.com/davechibuike/flask_app_Project.git
-        dest: ~/flask_dir/
+        dest: /home/ubuntu/
         version: main
 
     - name: create virtual environment (Amazon Linux)
