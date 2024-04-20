@@ -3,7 +3,7 @@
   become: true
 
   vars:
-    flask_app_dir: /home/centos/flask_app_Project
+    flask_app_dir: /home/centos/flask-app
     git_hub_repo: https://github.com/davechibuike/flask_app_Project.git
   tasks:
     - name: Install Git on Amazon Linux
