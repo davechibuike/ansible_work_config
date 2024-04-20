@@ -1,0 +1,41 @@
+---
+- name: Deploy Flask Application
+  hosts: your_target_host
+  become: yes
+  vars:
+    venv_path: myprojectenv
+  tasks:
+    - name: Ensure Python 3 virtualenv is installed
+      apt:
+        name: python3-venv
+        state: present
+      when: ansible_distribution == 'Ubuntu' # Adjust based on your target OS
+
+    - name: Clone the Flask application repository
+      git:
+        repo: https://github.com/davechibuike/flask_app_Project.git
+        dest: /opt/flask_app
+        force: yes
+
+    - name: Set up Python virtual environment
+      command: python3 -m venv /opt/flask_app/{{ venv_path }}
+      args:
+        creates: /opt/flask_app/{{ venv_path }}
+
+    - name: Install Flask application dependencies
+      pip:
+        requirements: /opt/flask_app/requirements.txt
+        virtualenv: /opt/flask_app/{{ venv_path }}
+
+    - name: Configure Flask app
+      lineinfile:
+        path: /opt/flask_app/myproject.py
+        line: "app.run(host='0.0.0.0', port='8080')"
+
+    - name: Start the Flask application
+      shell: |
+        source /opt/flask_app/{{ venv_path }}/bin/activate &&
+        python /opt/flask_app/myproject.py
+      async: 0
+      poll: 0
+      ignore_errors: yes # Adjust based on your requirements

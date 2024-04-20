@@ -1,0 +1,21 @@
+---
+- name: Deploy Flask Application
+  hosts: your_server_ip
+  become: yes
+  tasks:
+    - name: Clone the repository
+      git:
+        repo: https://github.com/davechibuike/flask_app_Project.git
+        dest: /opt/flask_app
+        version: main
+
+    - name: Install dependencies
+      pip:
+        requirements: /opt/flask_app/requirements.txt
+        virtualenv: /opt/flask_app/venv
+
+    - name: Start Flask application
+      command: /opt/flask_app/venv/bin/python /opt/flask_app/app.py
+      async: true
+      poll: 0
+      become: false

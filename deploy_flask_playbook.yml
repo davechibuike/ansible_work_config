@@ -1,0 +1,36 @@
+---
+- name: Deploy Flask Application
+  hosts: your_ec2_instance
+  become: yes
+  vars:
+    venv_path: myprojectenv
+  tasks:
+    - name: Ensure Python 3 virtualenv is installed
+      yum:
+        name: python3-venv
+        state: present
+
+    # Add tasks for other necessary setup steps specific to your EC2 environment
+
+    - name: Configure Gunicorn systemd service
+      template:
+        src: gunicorn.service.j2
+        dest: /etc/systemd/system/gunicorn.service
+      notify: Restart Gunicorn
+
+    - name: Configure Nginx
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+      notify: Restart Nginx
+
+  handlers:
+    - name: Restart Gunicorn
+      systemd:
+        name: gunicorn
+        state: restarted
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
