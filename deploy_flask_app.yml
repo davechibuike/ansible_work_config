@@ -9,7 +9,7 @@
       package:
         name: python3-virtualenv
         state: present
-      when: ansible_os_family == 'RedHat' # Checking for CentOS/RHEL
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
 
     - name: Clone the Flask application repository
       git:
