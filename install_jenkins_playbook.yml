@@ -1,16 +1,29 @@
-- name: Install Jenkins
+- name: Install Java and Maven
   hosts: jenkins_ansible
   become: true
   tasks:
-    - name: Add Jenkins repository key
-      rpm_key:
-        key: https://pkg.jenkins.io/redhat/jenkins.io.key
+    - name: Update Instance
+      shell:
+        cmd: sudo yum update -y
+
+    - name: Download Apache Maven
+      get_url:
+        url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        dest: /etc/yum.repos.d/jenkins.repo
+
+    - name: Install Java
+      yum:
+        name: fontconfig java-11-openjdk
         state: present
 
     - name: Install Jenkins
       yum:
         name: jenkins
         state: present
+
+    - name: Reload systemd daemon
+      systemd:
+        daemon_reload: yes
 
     - name: Enable and start Jenkins service
       service:
