@@ -11,6 +11,10 @@
         url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
         dest: /etc/yum.repos.d/jenkins.repo
 
+    - name: Import Jenkins repository GPG key
+      command:
+        cmd: "sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key"
+
     - name: Install Java and fontconfig
       yum:
         name:
