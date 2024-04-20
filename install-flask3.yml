@@ -21,7 +21,7 @@
       register: venv_result
 
     - name: Activate virtual environment
-      command: source "{{ flask_app_dir }}/.myenv/bin/activate"
+      shell: source "{{ flask_app_dir }}/.myenv/bin/activate"
       args:
         executable: /bin/bash
       when: venv_result.rc == 0
