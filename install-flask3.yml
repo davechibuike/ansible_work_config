@@ -34,7 +34,7 @@
       when: venv_result.rc == 0
 
     - name: Start Flask app
-      command: "{{ flask_app_dir }}/.myenv/bin/flask run --host=0.0.0.0 --port=5000 &"
+      shell: "{{ flask_app_dir }}/.myenv/bin/flask run --host=0.0.0.0 --port=5000 &"
       async: 0
       poll: 0
       when: venv_result.rc == 0
