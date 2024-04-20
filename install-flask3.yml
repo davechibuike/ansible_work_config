@@ -4,6 +4,8 @@
 
   vars:
     flask_app_dir: /home/ubuntu/flask_dir
+    flask_repo_url: https://github.com/davechibuike/flask_app_Project.git
+    flask_app_file: app.py
 
   tasks:
     - name: Ensure flask directory exists
@@ -14,11 +16,25 @@
         owner: ubuntu
         group: ubuntu
 
-    - name: Create virtual environment
-      command: python3 -m venv "{{ flask_app_dir }}/.myenv"
-      args:
-        chdir: "{{ flask_app_dir }}"
-      register: venv_result
+    - name: Clone Flask app repository
+      git:
+        repo: "{{ flask_repo_url }}"
+        dest: "{{ flask_app_dir }}/flask_app_Project"
+      register: git_clone_result
+      when: venv_result.rc == 0
+
+    - name: Check out the main branch
+      git:
+        repo: "{{ flask_repo_url }}"
+        dest: "{{ flask_app_dir }}/flask_app_Project"
+        version: main
+      when: git_clone_result is succeeded and venv_result.rc == 0
+
+    - name: Copy app.py to flask_app_dir
+      copy:
+        src: "{{ flask_app_dir }}/flask_app_Project/{{ flask_app_file }}"
+        dest: "{{ flask_app_dir }}/{{ flask_app_file }}"
+      when: git_clone_result is succeeded and venv_result.rc == 0
 
     - name: Activate virtual environment
       shell: source "{{ flask_app_dir }}/.myenv/bin/activate"
