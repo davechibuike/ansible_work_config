@@ -1,5 +1,5 @@
 - name: setup flask environment
-  hosts:
+  hosts: flask_app_ubuntu
   become: true
 
   vars:
