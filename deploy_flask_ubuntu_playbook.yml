@@ -28,7 +28,7 @@
     - name: install modules in a virtualenv
       pip:
         requirements: /home/ubuntu/flask_app_Project/requirements.txt
-        virtualenv: /home/ubuntu/flask_app_Project/env
+        virtualenv: /usr/bin/env
         virtualenv_python: python3.5
 
 # Configure app systemd service and nginx
